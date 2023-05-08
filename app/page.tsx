@@ -1,3 +1,4 @@
+import { cloneElement } from "react";
 import NavLink from "./NavLink";
 
 const getOptimalVisitDate = () => {
@@ -38,7 +39,10 @@ const getPrepareCalendarNoteLink = () => {
 
   const prepareDate = dateToRFC5545(startTime) + "/" + dateToRFC5545(endTime);
 
-  return `https://calendar.google.com/calendar/u/0/r/eventedit?text=Verenluovutus&dates=${prepareDate}`;
+  const noteDescription = `<div><h2>Varaa aika</h2><a href="https://ajanvaraus.veripalvelu.fi/VP/location/Turku">https://ajanvaraus.veripalvelu.fi/VP/location/Turku</a><h2>Terveyskysely</h2><a href="https://terveyskysely.fi">https://terveyskysely.fi</a></div>`;
+  const noteDescriptionEncoded = encodeURIComponent(noteDescription);
+
+  return `https://calendar.google.com/calendar/u/0/r/eventedit?text=Varaa%20verenluovutus&dates=${prepareDate}&details=${noteDescriptionEncoded}`;
 };
 
 export default function Home() {
