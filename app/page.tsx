@@ -29,7 +29,7 @@ const getVisitCalendarNoteLink = () => {
   return `https://calendar.google.com/calendar/u/0/r/eventedit?text=Verenluovutus&dates=${visitDate}&location=Veripalvelu%20Turku&details=%3Ch1%3Easd%3C%2Fh1%3E`;
 };
 
-const getPrepareCalendarNoteLink = () => {
+const getBookCalendarNoteLink = () => {
   const startTime = getOptimalVisitDate();
   startTime.setDate(startTime.getDate() - 1);
   startTime.setHours(18);
@@ -37,17 +37,17 @@ const getPrepareCalendarNoteLink = () => {
 
   const endTime = new Date(startTime.getTime() + 30 * 60 * 1000);
 
-  const prepareDate = dateToRFC5545(startTime) + "/" + dateToRFC5545(endTime);
+  const bookDate = dateToRFC5545(startTime) + "/" + dateToRFC5545(endTime);
 
   const noteDescription = `<div><h2>Varaa aika</h2><a href="https://ajanvaraus.veripalvelu.fi/VP/location/Turku">https://ajanvaraus.veripalvelu.fi/VP/location/Turku</a><h2>Terveyskysely</h2><a href="https://terveyskysely.fi">https://terveyskysely.fi</a></div>`;
   const noteDescriptionEncoded = encodeURIComponent(noteDescription);
 
-  return `https://calendar.google.com/calendar/u/0/r/eventedit?text=Varaa%20verenluovutus&dates=${prepareDate}&details=${noteDescriptionEncoded}`;
+  return `https://calendar.google.com/calendar/u/0/r/eventedit?text=Varaa%20verenluovutus&dates=${bookDate}&details=${noteDescriptionEncoded}`;
 };
 
 export default function Home() {
   const visitCalendarNoteLink = getVisitCalendarNoteLink();
-  const prepareCalendarNoteLink = getPrepareCalendarNoteLink();
+  const bookCalendarNoteLink = getBookCalendarNoteLink();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -80,7 +80,7 @@ export default function Home() {
 
         <NavLink
           title="Lisää varausmuistutus kalenteriin"
-          href={prepareCalendarNoteLink}
+          href={bookCalendarNoteLink}
           external
         >
           Lisää muistutus terveyskyselystä ja ajanvarauksesta
